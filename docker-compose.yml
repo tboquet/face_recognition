@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+    aligncrop:
+        image: face-recognition
+        build: .
+        volumes:
+            - ~/face_recognition/images:/images
+            - .:/srv/app
+            - ~/face_recognition/results:/results
+        entrypoint: ["python", "align_crop.py"]
+        stdin_open: true
+        tty: true
+
+    notebook:
+        image: face-recognition
+        build: .
+        volumes:
+            - ~/face_recognition/images:/images
+            - .:/srv/app
+            - ~/face_recognition/results:/results
+        ports:
+            - "8888:8888"
+        command: jupyter notebook --allow-root
+        tty: true
